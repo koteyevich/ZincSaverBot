@@ -33,6 +33,13 @@ public class Cobalt(CobaltServices cobaltServices, ILogger<Cobalt> logger, ITele
             switch (response)
             {
                 case Error error:
+                    if (error.Code == "error.api.content.post.unavailable")
+                    {
+                        await bot.SendMessage(message,
+                            "Couldn't find anything about this post! Its visibility may be limited or it may not exist. Make sure your link works and try again in a few seconds!");
+                        return;
+                    }
+
                     throw new ApiRequestException(error.Code);
                 case TunnelRedirectResponse tunnelRedirectResponse:
                 {
