@@ -128,7 +128,6 @@ public class CobaltServices
 
 
         var response = await client.PostAsync(_cobaltSettings.Url, content);
-        response.EnsureSuccessStatusCode();
         var jsonResponse = JsonSerializer.Deserialize<JsonElement>(await response.Content.ReadAsStringAsync());
 
         if (jsonResponse.ValueKind != JsonValueKind.Object)
